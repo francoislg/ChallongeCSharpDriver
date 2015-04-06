@@ -18,5 +18,16 @@ namespace ChallongeCSharpDriver {
             this.httpAddress = "https://api.challonge.com/v1/";
             this.responseType = ResponseType.JSON;
         }
+
+        public string getResponseType() {
+            switch (responseType) {
+                case ChallongeConfig.ResponseType.JSON:
+                    return "json";
+                case ChallongeConfig.ResponseType.XML:
+                    return "xml";
+                default:
+                    return "json";
+            }
+        }
     }
 }

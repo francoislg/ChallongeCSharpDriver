@@ -8,9 +8,6 @@ namespace ChallongeCSharpDriver {
 
     public class ChallongeAPICaller {
         private ChallongeConfig config;
-        private class GetAllTournamentRequest {
-            public string api_key { get; set; }
-        };
         private class Tournament {
             public string tournament_type {get; set;}
         }
@@ -24,34 +21,23 @@ namespace ChallongeCSharpDriver {
         
         public async Task GetAllTournaments() {
             using (var client = new HttpClient()) {
-                client.BaseAddress = new Uri(config.httpAddress);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // HTTP GET
-                HttpResponseMessage response = await client.GetAsync(getAPIString("tournaments") + "?api_key=" + config.apiKey);
+                HttpResponseMessage response = await client.GetAsync(config.httpAddress + getAPIString("tournaments") + "?api_key=" + config.apiKey);
+
                 if (response.IsSuccessStatusCode) {
                     Tournaments tournaments = await response.Content.ReadAsAsync<Tournaments>();
-                    Console.WriteLine("{0}", tournaments.tournaments);
+                    Console.WriteLine(tournaments.tournaments);
                 } else {
-                    Console.WriteLine("{0}", response);
+                    Console.WriteLine(response);
                 }
             }
         }
 
         private string getAPIString(string api) {
-            return api + "." + config.responseType;
-        }
-
-        private string getResponseType(){
-            switch (config.responseType) {
-                case ChallongeConfig.ResponseType.JSON:
-                    return "JSON";
-                case ChallongeConfig.ResponseType.XML:
-                    return "XML";
-                default:
-                    return "JSON";
-            }
+            return api + "." + config.getResponseType();
         }
     }
 }

@@ -30,10 +30,10 @@ namespace ChallongeCSharpDriverExample {
             return ini;
         }
 
-        private void sendQueryButton_Click(object sender, EventArgs e) {
+        private async void sendQueryButton_Click(object sender, EventArgs e) {
             Button me = (Button)sender;
             me.Hide();
-            caller.GetAllTournaments().Wait();
+            await caller.GetAllTournaments();
             me.Show();
         }
     }
