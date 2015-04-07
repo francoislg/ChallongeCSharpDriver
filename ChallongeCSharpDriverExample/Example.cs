@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace ChallongeCSharpDriverExample {
     using ChallongeCSharpDriver;
+    using ChallongeCSharpDriver.Queries;
     using System.IO;
     
     public partial class Example : Form {
@@ -33,7 +34,7 @@ namespace ChallongeCSharpDriverExample {
         private async void sendQueryButton_Click(object sender, EventArgs e) {
             Button me = (Button)sender;
             me.Hide();
-            Matches matches = await caller.GetTournamentMatches(1580436);
+            Matches matches = await caller.GetTournamentMatches(new TournamentMatchesQuery(1580436));
             foreach (Match match in matches.matches) {
                 Console.WriteLine(match);
             }

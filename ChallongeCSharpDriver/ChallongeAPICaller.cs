@@ -2,9 +2,11 @@
 namespace ChallongeCSharpDriver {
     using System;
     using System.Collections.Generic;
+    using System.Text;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
+    using ChallongeCSharpDriver.Queries;
 
     public class ChallongeAPICaller {
         private ChallongeConfig config;
@@ -16,13 +18,13 @@ namespace ChallongeCSharpDriver {
             this.config = config;
         }
         
-        public async Task<Tournaments> GetAllTournaments() {
+        public async Task<Tournaments> GetAllTournaments(TournamentsQuery tournamentQuery) {
             using (var client = new HttpClient()) {
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // HTTP GET
-                HttpResponseMessage response = await client.GetAsync(getAPIString("tournaments"));
+                HttpResponseMessage response = await client.GetAsync(getAPIStringFromQuery(tournamentQuery));
 
                 if (response.IsSuccessStatusCode) {
                     List<TournamentsQueryResult> tournamentsQueryResult = await response.Content.ReadAsAsync<List<TournamentsQueryResult>>();
@@ -42,13 +44,13 @@ namespace ChallongeCSharpDriver {
             public Match match { get; set; }
         }
 
-        public async Task<Matches> GetTournamentMatches(int tournamentID) {
+        public async Task<Matches> GetTournamentMatches(TournamentMatchesQuery tournamentMatchesQuery) {
             using (var client = new HttpClient()) {
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // HTTP GET
-                HttpResponseMessage response = await client.GetAsync(getAPIString("tournaments/" + tournamentID + "/matches"));
+                HttpResponseMessage response = await client.GetAsync(getAPIStringFromQuery(tournamentMatchesQuery));
 
                 if (response.IsSuccessStatusCode) {
                     List<MatchesQueryResult> matchesQueryResult = await response.Content.ReadAsAsync<List<MatchesQueryResult>>();
@@ -63,12 +65,16 @@ namespace ChallongeCSharpDriver {
                 }
             }
         }
-        private string getAPIString(string api) {
-            return getAPIString(api, new string[] {});
+        private string getAPIStringFromQuery(ChallongeQuery query) {
+            return config.httpAddress + query.getAPIPath() + "." + config.getResponseType() + "?api_key=" + config.apiKey + dictionaryToString(query.getParameters());
         }
 
-        private string getAPIString(string api, string[] extraParameters) {
-            return config.httpAddress + api + "." + config.getResponseType() + "?api_key=" + config.apiKey + "&" + string.Join("&", extraParameters);
+        private string dictionaryToString(Dictionary<string, string> dictionary) {
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (KeyValuePair<string, string> entry in dictionary) {
+                stringBuilder.Append("&" + entry.Key + "=" + entry.Value);
+            }
+            return stringBuilder.ToString();
         }
     }
 }
