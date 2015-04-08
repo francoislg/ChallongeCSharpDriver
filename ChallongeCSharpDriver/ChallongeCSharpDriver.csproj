@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChallongeConfig.cs" />
-    <Compile Include="Queries\ChallongeQuery.cs" />
+    <Compile Include="Queries\ChallongeQueryParser.cs" />
     <Compile Include="CouldNotReceiveResponse.cs" />
     <Compile Include="Match.cs" />
     <Compile Include="Matches.cs" />

@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Queries {
-    public interface ChallongeQuery {
-        Dictionary<String, String> getParameters();
-        string getAPIPath();
+    using System.Net.Http;
+
+    public interface ChallongeQuery<ReturnType> {
+        Task<ReturnType> call(ChallongeAPICaller caller);
     }
 }

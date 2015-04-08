@@ -5,10 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Queries {
-    public class TournamentsQuery : ChallongeQuery {
-        public Nullable<TournamentType> type { get; set; }
+    using System.Net.Http;
 
-        public Dictionary<String, String> getParameters() {
+    public class TournamentsQuery : ChallongeQuery<Tournaments> {
+        public Nullable<TournamentType> type { get; set; }
+        
+        private class TournamentsQueryResult {
+            public Tournament tournament { get; set; }
+        }
+
+        private Dictionary<String, String> getParameters() {
             Dictionary<String, String> parameters = new Dictionary<string, string>();
             if (type.HasValue) {
                 switch(type){
@@ -29,8 +35,18 @@ namespace ChallongeCSharpDriver.Queries {
             return parameters;
         }
 
-        public string getAPIPath() {
+        private string getAPIPath() {
             return "tournaments";
+        }
+
+        public async Task<Tournaments> call(ChallongeAPICaller caller) {
+            HttpContent content = await caller.CallAPI(getAPIPath(), getParameters());
+            List<TournamentsQueryResult> tournamentsQueryResult = await content.ReadAsAsync<List<TournamentsQueryResult>>();
+            List<Tournament> tournamentsList = new List<Tournament>();
+            foreach (TournamentsQueryResult queryResult in tournamentsQueryResult) {
+                tournamentsList.Add(queryResult.tournament);
+            }
+            return new Tournaments() { tournaments = tournamentsList };
         }
     }
 }

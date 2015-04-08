@@ -34,7 +34,7 @@ namespace ChallongeCSharpDriverExample {
         private async void sendQueryButton_Click(object sender, EventArgs e) {
             Button me = (Button)sender;
             me.Hide();
-            Matches matches = await caller.GetTournamentMatches(new TournamentMatchesQuery(1580436));
+            Matches matches = await new TournamentMatchesQuery(1580436).call(caller);
             foreach (Match match in matches.matches) {
                 Console.WriteLine(match);
             }

@@ -5,16 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Queries {
-    public class TournamentMatchesQuery : ChallongeQuery {
+    using System.Net.Http;
+
+    public class TournamentMatchesQuery : ChallongeQuery<Matches> {
         public int tournamentID { get; set; }
         public Nullable<MatchState> matchState { get; set; }
         public Nullable<int> participantID { get; set; }
+
+        private class MatchesQueryResult {
+            public Match match { get; set; }
+        }
 
         public TournamentMatchesQuery(int tournamentID) {
             this.tournamentID = tournamentID;
         }
 
-        public Dictionary<String, String> getParameters() {
+        private Dictionary<String, String> getParameters() {
             Dictionary<String, String> parameters = new Dictionary<string, string>();
             switch (matchState) {
                 case MatchState.Open:
@@ -36,8 +42,18 @@ namespace ChallongeCSharpDriver.Queries {
             return parameters;
         }
 
-        public string getAPIPath() {
+        private string getAPIPath(){
             return "tournaments/" + tournamentID + "/matches";
+        }
+
+        public async Task<Matches> call(ChallongeAPICaller caller) {
+            HttpContent content = await caller.CallAPI(getAPIPath(), getParameters());
+            List<MatchesQueryResult> matchesQueryResult = await content.ReadAsAsync<List<MatchesQueryResult>>();
+            List<Match> matchesList = new List<Match>();
+            foreach (MatchesQueryResult queryResult in matchesQueryResult) {
+                matchesList.Add(queryResult.match);
+            }
+            return new Matches() { matches = matchesList };
         }
     }
 }
