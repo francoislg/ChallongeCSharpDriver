@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Core {
-    public enum TournamentType {
-        Single_Elimination, Double_Elimination, Round_Robin, Swiss
+    public interface Matches {
+        List<Match> matches {get;}
     }
 }

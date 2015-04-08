@@ -4,13 +4,18 @@ using System.Linq;
 using System.Text;
 
 namespace ChallongeCSharpDriver.Core {
-    public class Match {
+    public class MatchObject : Match {
         public int id { get; set; }
         public string identifier { get; set; }
         public Nullable<int> player1_id { get; set; }
         public Nullable<int> player2_id { get; set; }
         private string currentState;
-        public MatchState matchState;
+        private MatchState internMatchState;
+        public MatchState matchState {
+            get {
+                return internMatchState;
+            }
+        }
         public string state {
             get {
                 return currentState;   
@@ -19,13 +24,13 @@ namespace ChallongeCSharpDriver.Core {
                 currentState = value;
                 switch (value) {
                     case "open":
-                        matchState = MatchState.Open;
+                        internMatchState = MatchState.Open;
                         break;
                     case "complete":
-                        matchState = MatchState.Complete;
+                        internMatchState = MatchState.Complete;
                         break;
                     case "pending":
-                        matchState = MatchState.Pending;
+                        internMatchState = MatchState.Pending;
                         break;
                     default:
                         throw new ArgumentException();

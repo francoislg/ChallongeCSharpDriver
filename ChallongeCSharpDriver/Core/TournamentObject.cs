@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Core {
-    public sealed class Tournament {
+    public sealed class TournamentObject : Tournament {
         public int id { get; set; }
         public string name { get; set; }
         public string url { get; set; }

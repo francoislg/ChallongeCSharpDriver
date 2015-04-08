@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Core.Queries {
+    using ChallongeCSharpDriver.Caller;
     using System.Net.Http;
 
     public class TournamentsQuery : ChallongeQuery<Tournaments> {
         public Nullable<TournamentType> type { get; set; }
         
         private class TournamentsQueryResult {
-            public Tournament tournament { get; set; }
+            public TournamentObject tournament { get; set; }
         }
 
         private Dictionary<String, String> getParameters() {
@@ -42,11 +43,11 @@ namespace ChallongeCSharpDriver.Core.Queries {
         public async Task<Tournaments> call(ChallongeAPICaller caller) {
             HttpContent content = await caller.CallAPI(getAPIPath(), getParameters());
             List<TournamentsQueryResult> tournamentsQueryResult = await content.ReadAsAsync<List<TournamentsQueryResult>>();
-            List<Tournament> tournamentsList = new List<Tournament>();
+            TournamentCollection tournaments = new TournamentCollection();
             foreach (TournamentsQueryResult queryResult in tournamentsQueryResult) {
-                tournamentsList.Add(queryResult.tournament);
+                tournaments.AddTournament(queryResult.tournament);
             }
-            return new Tournaments() { tournaments = tournamentsList };
+            return tournaments;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Core.Queries {
+    using ChallongeCSharpDriver.Caller;
     using System.Net.Http;
 
     public class TournamentMatchesQuery : ChallongeQuery<Matches> {
@@ -13,7 +14,7 @@ namespace ChallongeCSharpDriver.Core.Queries {
         public Nullable<int> participantID { get; set; }
 
         private class MatchesQueryResult {
-            public Match match { get; set; }
+            public MatchObject match { get; set; }
         }
 
         public TournamentMatchesQuery(int tournamentID) {
@@ -49,11 +50,11 @@ namespace ChallongeCSharpDriver.Core.Queries {
         public async Task<Matches> call(ChallongeAPICaller caller) {
             HttpContent content = await caller.CallAPI(getAPIPath(), getParameters());
             List<MatchesQueryResult> matchesQueryResult = await content.ReadAsAsync<List<MatchesQueryResult>>();
-            List<Match> matchesList = new List<Match>();
+            MatchCollection matches = new MatchCollection(tournamentID);
             foreach (MatchesQueryResult queryResult in matchesQueryResult) {
-                matchesList.Add(queryResult.match);
+                matches.AddMatch(queryResult.match);
             }
-            return new Matches() { matches = matchesList };
+            return matches;
         }
     }
 }
