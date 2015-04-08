@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChallongeCSharpDriver {
-    public enum MatchState {
-        Open, Pending, Complete
+namespace ChallongeCSharpDriver.Core {
+    public class Matches {
+        public List<Match> matches { get; set; }
     }
 }

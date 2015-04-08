@@ -1,12 +1,11 @@
 ﻿
-namespace ChallongeCSharpDriver {
+namespace ChallongeCSharpDriver.Core {
     using System;
     using System.Collections.Generic;
     using System.Text;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
-    using ChallongeCSharpDriver.Queries;
 
     public class ChallongeAPICaller {
         private ChallongeConfig config;

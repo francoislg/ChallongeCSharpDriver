@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChallongeCSharpDriver {
+namespace ChallongeCSharpDriver.Core {
     public class Tournaments {
         public List<Tournament> tournaments { get; set; }
     }

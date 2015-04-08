@@ -45,18 +45,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChallongeConfig.cs" />
-    <Compile Include="Queries\ChallongeQueryParser.cs" />
-    <Compile Include="CouldNotReceiveResponse.cs" />
-    <Compile Include="Match.cs" />
-    <Compile Include="Matches.cs" />
-    <Compile Include="MatchState.cs" />
+    <Compile Include="Core\Queries\ChallongeQueryParser.cs" />
+    <Compile Include="Core\CouldNotReceiveResponse.cs" />
+    <Compile Include="Core\Match.cs" />
+    <Compile Include="Core\Matches.cs" />
+    <Compile Include="Core\MatchState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ChallongeAPICaller.cs" />
-    <Compile Include="Queries\TournamentMatchesQuery.cs" />
-    <Compile Include="Queries\TournamentsQuery.cs" />
-    <Compile Include="Tournament.cs" />
-    <Compile Include="Tournaments.cs" />
-    <Compile Include="TournamentType.cs" />
+    <Compile Include="Core\ChallongeAPICaller.cs" />
+    <Compile Include="Core\Queries\TournamentMatchesQuery.cs" />
+    <Compile Include="Core\Queries\TournamentsQuery.cs" />
+    <Compile Include="Core\Tournament.cs" />
+    <Compile Include="Core\Tournaments.cs" />
+    <Compile Include="Core\TournamentType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

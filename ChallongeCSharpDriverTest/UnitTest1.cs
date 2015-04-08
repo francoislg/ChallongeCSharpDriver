@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ChallongeCSharpDriverTest {
+namespace ChallongeCSharpDriver.CoreTest {
     [TestClass]
     public class UnitTest1 {
         [TestMethod]
