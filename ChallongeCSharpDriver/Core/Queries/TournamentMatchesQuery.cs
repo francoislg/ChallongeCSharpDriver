@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Core.Queries {
     using ChallongeCSharpDriver.Caller;
+    using ChallongeCSharpDriver.Core.QueriedObjects;
     using System.Net.Http;
 
     public class TournamentMatchesQuery : ChallongeQuery<Matches> {

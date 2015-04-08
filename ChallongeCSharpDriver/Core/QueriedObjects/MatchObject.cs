@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ChallongeCSharpDriver.Core {
+namespace ChallongeCSharpDriver.Core.QueriedObjects {
     public class MatchObject : Match {
         public int id { get; set; }
         public string identifier { get; set; }

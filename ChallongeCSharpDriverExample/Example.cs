@@ -11,6 +11,7 @@ using System.Windows.Forms;
 namespace ChallongeCSharpDriverExample {
     using ChallongeCSharpDriver;
     using ChallongeCSharpDriver.Caller;
+    using ChallongeCSharpDriver.Core;
     using ChallongeCSharpDriver.Core.Queries;
     using System.IO;
     

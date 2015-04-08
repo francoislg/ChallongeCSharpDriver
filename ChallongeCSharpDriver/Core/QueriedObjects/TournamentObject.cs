@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChallongeCSharpDriver.Core {
+namespace ChallongeCSharpDriver.Core.QueriedObjects {
     public sealed class TournamentObject : Tournament {
         public int id { get; set; }
         public string name { get; set; }

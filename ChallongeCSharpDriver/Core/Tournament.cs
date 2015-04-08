@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChallongeCSharpDriver {
+namespace ChallongeCSharpDriver.Core {
     public interface Tournament {
         int id { get; }
         string ToString();

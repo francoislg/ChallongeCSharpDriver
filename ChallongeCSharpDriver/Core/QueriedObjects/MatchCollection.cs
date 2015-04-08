@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChallongeCSharpDriver.Core {
+namespace ChallongeCSharpDriver.Core.QueriedObjects {
     public class MatchCollection : Matches {
         private int tournamentID;
         private List<Match> internMatches;
