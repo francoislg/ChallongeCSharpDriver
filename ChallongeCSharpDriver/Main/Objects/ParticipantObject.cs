@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChallongeCSharpDriver.Main {
+namespace ChallongeCSharpDriver.Main.Objects {
     using ChallongeCSharpDriver.Core.Results;
 
     public class ParticipantObject : Participant {
