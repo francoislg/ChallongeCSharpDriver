@@ -15,48 +15,56 @@ namespace ChallongeCSharpDriver.Caller {
             this.config = config;
         }
 
-        public async Task<ReturnType> CallAPI<ReturnType>(string path) {
-            return await CallAPI<ReturnType>(path, new QueryParameters());
-        }
-
-        public async Task<ReturnType> CallAPI<ReturnType>(string path, QueryParameters parameters) {
+        public async Task<ReturnType> GET<ReturnType>(string path, QueryParameters parameters) {
             using (var client = new HttpClient()) {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                setUpClient(client, parameters);
 
-                parameters.Add("api_key", config.apiKey);
+                HttpResponseMessage response = await client.GetAsync(buildPath(path) + parameters);
 
-                // HTTP GET
-                HttpResponseMessage response = await client.GetAsync(config.httpAddress + path + "." + config.getResponseType() + parameters);
-
-                if (response.IsSuccessStatusCode) {
-                    return await response.Content.ReadAsAsync<ReturnType>();
-                } else {
-                    Console.WriteLine(response);
-                    Console.WriteLine(parameters);
-                    throw new CouldNotReceiveResponse();
-                }
+                return await handleResponse<ReturnType>(response, parameters);
             }
         }
 
-        public async Task<ReturnType> SendToAPI<ReturnType>(string path, QueryParameters parameters) {
+        public async Task<ReturnType> POST<ReturnType>(string path, QueryParameters parameters) {
             using (var client = new HttpClient()) {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                setUpClient(client, parameters);
 
-                parameters.Add("api_key", config.apiKey);
                 FormUrlEncodedContent urlContent = new FormUrlEncodedContent(parameters.parameters);
+                HttpResponseMessage response = await client.PostAsync(buildPath(path), urlContent);
 
-                // HTTP GET
-                HttpResponseMessage response = await client.PutAsync(config.httpAddress + path + "." + config.getResponseType(), urlContent);
+                return await handleResponse<ReturnType>(response, parameters);
+            }
+        }
 
-                if (response.IsSuccessStatusCode) {
-                    return await response.Content.ReadAsAsync<ReturnType>();
-                } else {
-                    Console.WriteLine(response);
-                    Console.WriteLine(parameters);
-                    throw new CouldNotReceiveResponse();
-                }
+        public async Task<ReturnType> PUT<ReturnType>(string path, QueryParameters parameters) {
+            using (var client = new HttpClient()) {
+                setUpClient(client, parameters);
+
+                FormUrlEncodedContent urlContent = new FormUrlEncodedContent(parameters.parameters);
+                HttpResponseMessage response = await client.PutAsync(buildPath(path), urlContent);
+
+                return await handleResponse<ReturnType>(response, parameters);
+            }
+        }
+
+        private string buildPath(string path) {
+            return config.httpAddress + path + "." + config.getResponseType();
+        }
+
+        private void setUpClient(HttpClient client, QueryParameters parameters) {
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            parameters.Add("api_key", config.apiKey);
+        }
+
+        private async Task<ReturnType> handleResponse<ReturnType>(HttpResponseMessage response, QueryParameters parameters) {
+            if (response.IsSuccessStatusCode) {
+                return await response.Content.ReadAsAsync<ReturnType>();
+            } else {
+                Console.WriteLine(response);
+                Console.WriteLine(parameters);
+                throw new CouldNotReceiveResponse();
             }
         }
     }

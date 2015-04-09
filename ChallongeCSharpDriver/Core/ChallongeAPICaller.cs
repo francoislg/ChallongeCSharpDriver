@@ -8,8 +8,8 @@ namespace ChallongeCSharpDriver.Core {
     using System.Net.Http;
 
     public interface ChallongeAPICaller {
-        Task<ReturnType> CallAPI<ReturnType>(string path);
-        Task<ReturnType> CallAPI<ReturnType>(string path, QueryParameters parameters);
-        Task<ReturnType> SendToAPI<ReturnType>(string path, QueryParameters parameters);
+        Task<ReturnType> GET<ReturnType>(string path, QueryParameters parameters);
+        Task<ReturnType> POST<ReturnType>(string path, QueryParameters parameters);
+        Task<ReturnType> PUT<ReturnType>(string path, QueryParameters parameters);
     }
 }

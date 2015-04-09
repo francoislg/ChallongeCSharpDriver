@@ -28,7 +28,7 @@ namespace ChallongeCSharpDriver.Core.Queries {
         }
 
         public async Task<TournamentResult> call(ChallongeAPICaller caller) {
-            TournamentQueryResult tournamentQueryResult = await caller.CallAPI<TournamentQueryResult>(getAPIPath(), getParameters());
+            TournamentQueryResult tournamentQueryResult = await caller.GET<TournamentQueryResult>(getAPIPath(), getParameters());
             return tournamentQueryResult.tournament;
         }
     }

@@ -38,12 +38,8 @@ namespace ChallongeCSharpDriverExample {
             Button me = (Button)sender;
             me.Hide();
             StartedTournament tournament = await tournaments.getTournament(1580436);
+            Console.WriteLine(await tournament.remainingUncompletedMatches);
             OpenMatch nextMatch = await tournament.getNextMatch();
-            nextMatch.addScore(new Score(1, 2));
-            await nextMatch.update();
-            nextMatch.addScore(new Score(2, 1));
-            nextMatch.addScore(new Score(2, 1));
-            await nextMatch.update();
             Console.WriteLine(nextMatch);
             me.Show();
         }

@@ -57,7 +57,7 @@ namespace ChallongeCSharpDriver.Core.Queries {
         }
 
         public async Task<MatchResult> call(ChallongeAPICaller caller) {
-            MatchQueryResult matchQueryResult = await caller.SendToAPI<MatchQueryResult>(getAPIPath(), getParameters());
+            MatchQueryResult matchQueryResult = await caller.PUT<MatchQueryResult>(getAPIPath(), getParameters());
             return matchQueryResult.match;
         }
 

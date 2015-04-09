@@ -30,7 +30,7 @@ namespace ChallongeCSharpDriver.Core.Queries {
         }
 
         public async Task<ParticipantResult> call(ChallongeAPICaller caller) {
-            ParticipantQueryResult participantResult = await caller.CallAPI<ParticipantQueryResult>(getAPIPath(), getParameters());
+            ParticipantQueryResult participantResult = await caller.GET<ParticipantQueryResult>(getAPIPath(), getParameters());
             return participantResult.participant;
         }
     }

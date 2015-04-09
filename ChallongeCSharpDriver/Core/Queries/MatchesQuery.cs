@@ -48,7 +48,7 @@ namespace ChallongeCSharpDriver.Core.Queries {
         }
 
         public async Task<List<MatchResult>> call(ChallongeAPICaller caller) {
-            List<MatchesQueryResult> matchesQueryResult = await caller.CallAPI<List<MatchesQueryResult>>(getAPIPath(), getParameters());
+            List<MatchesQueryResult> matchesQueryResult = await caller.GET<List<MatchesQueryResult>>(getAPIPath(), getParameters());
             List<MatchResult> matches = new List<MatchResult>();
             foreach (MatchesQueryResult queryResult in matchesQueryResult) {
                 matches.Add(queryResult.match);
