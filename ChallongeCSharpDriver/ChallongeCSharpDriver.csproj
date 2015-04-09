@@ -44,22 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChallongeConfig.cs" />
-    <Compile Include="Match.cs" />
-    <Compile Include="Matches.cs" />
+    <Compile Include="Caller\ChallongeConfig.cs" />
+    <Compile Include="Main\OpenMatch.cs" />
+    <Compile Include="Main\MatchObject.cs" />
     <Compile Include="Core\Queries\ChallongeQueryParser.cs" />
     <Compile Include="Caller\CouldNotReceiveResponse.cs" />
-    <Compile Include="Core\MatchObject.cs" />
-    <Compile Include="Core\MatchCollection.cs" />
+    <Compile Include="Core\Results\MatchResult.cs" />
+    <Compile Include="Main\Tournament.cs" />
+    <Compile Include="Main\Tournaments.cs" />
     <Compile Include="MatchState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Caller\ChallongeAPICaller.cs" />
     <Compile Include="Core\Queries\TournamentMatchesQuery.cs" />
     <Compile Include="Core\Queries\TournamentsQuery.cs" />
-    <Compile Include="Core\TournamentObject.cs" />
-    <Compile Include="Core\TournamentCollection.cs" />
-    <Compile Include="Tournament.cs" />
-    <Compile Include="Tournaments.cs" />
+    <Compile Include="Core\Results\TournamentResult.cs" />
+    <Compile Include="Main\TournamentObject.cs" />
     <Compile Include="TournamentType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

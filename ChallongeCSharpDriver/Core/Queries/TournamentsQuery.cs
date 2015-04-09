@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Core.Queries {
     using ChallongeCSharpDriver.Caller;
-    using ChallongeCSharpDriver.Core.QueriedObjects;
+    using ChallongeCSharpDriver.Core.Results;
+    using ChallongeCSharpDriver.Main;
     using System.Net.Http;
 
-    public class TournamentsQuery : ChallongeQuery<Tournaments> {
+    public class TournamentsQuery : ChallongeQuery<List<TournamentResult>> {
         public Nullable<TournamentType> type { get; set; }
         
         private class TournamentsQueryResult {
-            public TournamentObject tournament { get; set; }
+            public TournamentResult tournament { get; set; }
         }
 
         private Dictionary<String, String> getParameters() {
@@ -41,12 +42,12 @@ namespace ChallongeCSharpDriver.Core.Queries {
             return "tournaments";
         }
 
-        public async Task<Tournaments> call(ChallongeAPICaller caller) {
+        public async Task<List<TournamentResult>> call(ChallongeAPICaller caller) {
             HttpContent content = await caller.CallAPI(getAPIPath(), getParameters());
             List<TournamentsQueryResult> tournamentsQueryResult = await content.ReadAsAsync<List<TournamentsQueryResult>>();
-            TournamentCollection tournaments = new TournamentCollection();
+            List<TournamentResult> tournaments = new List<TournamentResult>();
             foreach (TournamentsQueryResult queryResult in tournamentsQueryResult) {
-                tournaments.AddTournament(queryResult.tournament);
+                tournaments.Add(queryResult.tournament);
             }
             return tournaments;
         }

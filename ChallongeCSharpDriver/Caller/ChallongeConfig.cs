@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ChallongeCSharpDriver {
+namespace ChallongeCSharpDriver.Caller {
     public class ChallongeConfig {
         public enum ResponseType {
             JSON, XML

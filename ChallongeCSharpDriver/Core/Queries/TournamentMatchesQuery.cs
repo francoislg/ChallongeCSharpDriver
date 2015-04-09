@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Core.Queries {
     using ChallongeCSharpDriver.Caller;
-    using ChallongeCSharpDriver.Core.QueriedObjects;
+    using ChallongeCSharpDriver.Core.Results;
+    using ChallongeCSharpDriver.Main;
     using System.Net.Http;
 
-    public class TournamentMatchesQuery : ChallongeQuery<Matches> {
+    public class TournamentMatchesQuery : ChallongeQuery<List<MatchResult>> {
         public int tournamentID { get; set; }
         public Nullable<MatchState> matchState { get; set; }
         public Nullable<int> participantID { get; set; }
 
         private class MatchesQueryResult {
-            public MatchObject match { get; set; }
+            public MatchResult match { get; set; }
         }
 
         public TournamentMatchesQuery(int tournamentID) {
@@ -48,12 +49,12 @@ namespace ChallongeCSharpDriver.Core.Queries {
             return "tournaments/" + tournamentID + "/matches";
         }
 
-        public async Task<Matches> call(ChallongeAPICaller caller) {
+        public async Task<List<MatchResult>> call(ChallongeAPICaller caller) {
             HttpContent content = await caller.CallAPI(getAPIPath(), getParameters());
             List<MatchesQueryResult> matchesQueryResult = await content.ReadAsAsync<List<MatchesQueryResult>>();
-            MatchCollection matches = new MatchCollection(tournamentID);
+            List<MatchResult> matches = new List<MatchResult>();
             foreach (MatchesQueryResult queryResult in matchesQueryResult) {
-                matches.AddMatch(queryResult.match);
+                matches.Add(queryResult.match);
             }
             return matches;
         }

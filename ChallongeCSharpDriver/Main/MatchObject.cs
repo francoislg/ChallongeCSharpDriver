@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ChallongeCSharpDriver.Main {
+    using ChallongeCSharpDriver.Core.Results;
+
+    public class MatchObject : OpenMatch {
+        private MatchResult result;
+        private MatchState matchState;
+
+        public MatchObject(MatchResult result) {
+            this.result = result;
+            switch (result.state) {
+                case "open":
+                    matchState = MatchState.Open;
+                    break;
+                case "pending":
+                    matchState = MatchState.Pending;
+                    break;
+                case "completed":
+                    matchState = MatchState.Complete;
+                    break;
+                default:
+                    throw new InvalidMatchState();
+            }
+        }
+
+        public override string ToString() {
+            return "Match #" + result.id + ", " + result.state;
+        }
+    }
+}

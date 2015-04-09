@@ -9,14 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ChallongeCSharpDriverExample {
-    using ChallongeCSharpDriver;
     using ChallongeCSharpDriver.Caller;
-    using ChallongeCSharpDriver.Core;
-    using ChallongeCSharpDriver.Core.Queries;
+    using ChallongeCSharpDriver.Main;
     using System.IO;
     
     public partial class Example : Form {
-        ChallongeAPICaller caller;
+        private ChallongeAPICaller caller;
+        private Tournaments tournaments;
 
         public Example() {
             InitializeComponent();
@@ -24,6 +23,7 @@ namespace ChallongeCSharpDriverExample {
             var data = readIni(configPath);
             ChallongeConfig config = new ChallongeConfig(data["api_key"]);
             caller = new ChallongeAPICaller(config);
+            tournaments = new Tournaments(caller);
         }
 
         private Dictionary<string, string> readIni(string file) {
@@ -36,8 +36,8 @@ namespace ChallongeCSharpDriverExample {
         private async void sendQueryButton_Click(object sender, EventArgs e) {
             Button me = (Button)sender;
             me.Hide();
-            Tournaments tournaments = await new TournamentsQuery().call(caller);
-            foreach (Tournament tournament in tournaments.tournaments) {
+            List<TournamentObject> tournamentList = await tournaments.getTournaments();
+            foreach (TournamentObject tournament in tournamentList) {
                 Console.WriteLine(tournament);
             }
             me.Show();
