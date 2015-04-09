@@ -14,7 +14,7 @@ namespace ChallongeCSharpDriver.Main {
         private TournamentResult result;
         private List<MatchObject> matches;
         public int remainingMatches { 
-            get { 
+            get {
                 return matches.Count;
             }
         }

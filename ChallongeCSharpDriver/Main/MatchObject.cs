@@ -9,7 +9,12 @@ namespace ChallongeCSharpDriver.Main {
 
     public class MatchObject : OpenMatch {
         private MatchResult result;
-        private MatchState matchState;
+        private MatchState matchState; 
+        public MatchState state {
+            get {
+                return matchState;
+            }
+        }
 
         public MatchObject(MatchResult result) {
             this.result = result;
@@ -26,6 +31,14 @@ namespace ChallongeCSharpDriver.Main {
                 default:
                     throw new InvalidMatchState();
             }
+        }
+
+        public string getPlayer1Name() {
+            return result.player1_id.ToString();
+        }
+
+        public string getPlayer2Name() {
+            return result.player2_id.ToString();
         }
 
         public override string ToString() {

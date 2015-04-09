@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ChallongeCSharpDriver.Main {
     public interface Tournament {
         int remainingMatches { get; }
-        OpenMatch getNextMatch();
+        Task<OpenMatch> getNextMatch();
         string ToString();
     }
 }

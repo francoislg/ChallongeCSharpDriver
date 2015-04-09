@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Main {
     public interface OpenMatch {
-        MatchState matchState { get; }
-        Nullable<int> player1_id { get; }
-        Nullable<int> player2_id { get; }
+        MatchState state { get; }
+        string getPlayer1Name();
+        string getPlayer2Name();
         string ToString();
     }
 }

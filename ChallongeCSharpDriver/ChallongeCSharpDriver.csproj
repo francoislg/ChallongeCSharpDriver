@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caller\ChallongeConfig.cs" />
+    <Compile Include="Main\Exceptions\InvalidMatchState.cs" />
+    <Compile Include="Main\Exceptions\NoNextMatchAvailable.cs" />
     <Compile Include="Main\OpenMatch.cs" />
     <Compile Include="Main\MatchObject.cs" />
     <Compile Include="Core\Queries\ChallongeQueryParser.cs" />
