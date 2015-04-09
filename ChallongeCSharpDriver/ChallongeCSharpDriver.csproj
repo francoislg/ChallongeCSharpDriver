@@ -45,18 +45,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caller\ChallongeConfig.cs" />
+    <Compile Include="Core\Queries\TournamentQuery.cs" />
     <Compile Include="Core\Queries\ParticipantQuery.cs" />
     <Compile Include="Core\Results\ParticipantResult.cs" />
     <Compile Include="Main\Exceptions\InvalidMatchState.cs" />
     <Compile Include="Main\Exceptions\NoNextMatchAvailable.cs" />
     <Compile Include="Main\OpenMatch.cs" />
-    <Compile Include="Main\MatchObject.cs" />
-    <Compile Include="Core\Queries\ChallongeQueryParser.cs" />
+    <Compile Include="Main\Objects\MatchObject.cs" />
+    <Compile Include="Core\Queries\ChallongeQuery.cs" />
     <Compile Include="Caller\CouldNotReceiveResponse.cs" />
     <Compile Include="Core\Results\MatchResult.cs" />
     <Compile Include="Main\Participant.cs" />
     <Compile Include="Main\Exceptions\ParticipantNotAssigned.cs" />
-    <Compile Include="Main\ParticipantObject.cs" />
+    <Compile Include="Main\Objects\ParticipantObject.cs" />
     <Compile Include="Main\StartedTournament.cs" />
     <Compile Include="Main\Tournaments.cs" />
     <Compile Include="MatchState.cs" />
@@ -65,7 +66,7 @@
     <Compile Include="Core\Queries\TournamentMatchesQuery.cs" />
     <Compile Include="Core\Queries\TournamentsQuery.cs" />
     <Compile Include="Core\Results\TournamentResult.cs" />
-    <Compile Include="Main\TournamentObject.cs" />
+    <Compile Include="Main\Objects\TournamentObject.cs" />
     <Compile Include="TournamentType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
