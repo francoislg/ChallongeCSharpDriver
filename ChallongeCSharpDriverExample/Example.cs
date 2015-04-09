@@ -12,7 +12,7 @@ namespace ChallongeCSharpDriverExample {
     using ChallongeCSharpDriver.Caller;
     using ChallongeCSharpDriver.Main;
     using System.IO;
-    
+
     public partial class Example : Form {
         private ChallongeHttpClientAPICaller caller;
         private Tournaments tournaments;
@@ -38,8 +38,9 @@ namespace ChallongeCSharpDriverExample {
             me.Hide();
             StartedTournament tournament = await tournaments.getTournament(1580436);
             OpenMatch nextMatch = await tournament.getNextMatch();
-            Participant player1 = await nextMatch.getPlayer1();
-            Console.WriteLine(player1);
+            nextMatch.player1Won();
+            await nextMatch.update();
+            Console.WriteLine(nextMatch);
             me.Show();
         }
     }

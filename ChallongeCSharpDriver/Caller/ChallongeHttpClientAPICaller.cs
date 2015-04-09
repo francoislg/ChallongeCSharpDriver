@@ -24,13 +24,16 @@ namespace ChallongeCSharpDriver.Caller {
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+                parameters.Add("api_key", config.apiKey);
+
                 // HTTP GET
-                HttpResponseMessage response = await client.GetAsync(config.httpAddress + path + "." + config.getResponseType() + "?api_key=" + config.apiKey + parameters);
+                HttpResponseMessage response = await client.GetAsync(config.httpAddress + path + "." + config.getResponseType() + parameters);
 
                 if (response.IsSuccessStatusCode) {
                     return await response.Content.ReadAsAsync<ReturnType>();
                 } else {
                     Console.WriteLine(response);
+                    Console.WriteLine(parameters);
                     throw new CouldNotReceiveResponse();
                 }
             }
@@ -45,12 +48,13 @@ namespace ChallongeCSharpDriver.Caller {
                 FormUrlEncodedContent urlContent = new FormUrlEncodedContent(parameters.parameters);
 
                 // HTTP GET
-                HttpResponseMessage response = await client.PostAsync(config.httpAddress + path + "." + config.getResponseType(), urlContent);
+                HttpResponseMessage response = await client.PutAsync(config.httpAddress + path + "." + config.getResponseType(), urlContent);
 
                 if (response.IsSuccessStatusCode) {
                     return await response.Content.ReadAsAsync<ReturnType>();
                 } else {
                     Console.WriteLine(response);
+                    Console.WriteLine(parameters);
                     throw new CouldNotReceiveResponse();
                 }
             }

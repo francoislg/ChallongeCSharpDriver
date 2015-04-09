@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Caller\ChallongeConfig.cs" />
     <Compile Include="Core\QueryParameters.cs" />
+    <Compile Include="Main\ClosedMatch.cs" />
     <Compile Include="Score.cs" />
     <Compile Include="Core\Queries\TournamentQuery.cs" />
     <Compile Include="Core\Queries\ParticipantQuery.cs" />

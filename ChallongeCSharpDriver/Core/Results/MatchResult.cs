@@ -11,6 +11,8 @@ namespace ChallongeCSharpDriver.Core.Results {
         public string identifier { get; set; }
         public Nullable<int> player1_id { get; set; }
         public Nullable<int> player2_id { get; set; }
+        public Nullable<int> winner_id { get; set; }
+        public Nullable<int> loser_id { get; set; }
         public string state;
     }
 }

@@ -5,14 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Main {
-    public interface OpenMatch {
+    public interface ClosedMatch {
         MatchState state { get; }
         Task<Participant> player1 { get; }
         Task<Participant> player2 { get; }
-        void player1Won();
-        void player2Won();
-        void tie();
-        Task update();
-        Task<ClosedMatch> close();
+        Task<Participant> winner { get; }
+        Task<Participant> loser { get; }
     }
 }

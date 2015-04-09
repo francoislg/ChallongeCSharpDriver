@@ -10,7 +10,7 @@ namespace ChallongeCSharpDriver.Core.Queries {
     public class UpdateMatchQuery : ChallongeQuery<MatchResult> {
         public int tournamentID { get; set; }
         public int matchID { get; set; }
-        public Nullable<List<Score>> scores { get; set; }
+        public List<Score> scores { get; set; }
         public bool isATie { get; set; }
         public Nullable<int> winnerID { get; set; }
         public Nullable<int> player1_votes { get; set; }
@@ -23,11 +23,12 @@ namespace ChallongeCSharpDriver.Core.Queries {
         public UpdateMatchQuery(int tournamentID, int matchID) {
             this.tournamentID = tournamentID;
             this.matchID = matchID;
+            this.scores = new List<Score>();
         }
 
         private QueryParameters getParameters() {
             QueryParameters parameters = new QueryParameters();
-            if (scores.HasValue) {
+            if (scores.Count > 0) {
                 List<string> formattedScoreList = new List<string>();
                 foreach (Score score in scores) {
                     formattedScoreList.Add(scoreToString(score));
@@ -51,7 +52,7 @@ namespace ChallongeCSharpDriver.Core.Queries {
         }
 
         public async Task<MatchResult> call(ChallongeAPICaller caller) {
-            MatchQueryResult matchQueryResult = await caller.CallAPI<MatchQueryResult>(getAPIPath(), getParameters());
+            MatchQueryResult matchQueryResult = await caller.SendToAPI<MatchQueryResult>(getAPIPath(), getParameters());
             return matchQueryResult.match;
         }
 

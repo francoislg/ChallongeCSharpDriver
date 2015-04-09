@@ -12,16 +12,21 @@ namespace ChallongeCSharpDriver.Core {
                 return internalParameters;
             }
         }
+        public bool hasParameters {
+            get {
+                return internalParameters.Count > 0;
+            }
+        }
         public void Add(string key, string value) {
             parameters.Add(new KeyValuePair<string, string>(key, value));
         }
 
         public override string ToString() {
-            StringBuilder stringBuilder = new StringBuilder();
+            List<string> list = new List<string>();
             foreach (KeyValuePair<string, string> entry in parameters) {
-                stringBuilder.Append("&" + entry.Key + "=" + entry.Value);
+                list.Add(entry.Key + "=" + entry.Value);
             }
-            return stringBuilder.ToString();
+            return "?" + String.Join("&", list);
         }
     }
 }

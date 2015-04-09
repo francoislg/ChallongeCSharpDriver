@@ -9,10 +9,31 @@ namespace ChallongeCSharpDriver.Main.Objects {
     using ChallongeCSharpDriver.Core.Queries;
     using ChallongeCSharpDriver.Core.Results;
 
-    public class MatchObject : OpenMatch {
+    public class MatchObject : OpenMatch, ClosedMatch {
         private ChallongeAPICaller caller;
         private MatchResult result;
-        private MatchState matchState; 
+        private UpdateMatchQuery updateMatchQuery;
+        private MatchState matchState;
+        public Task<Participant> player1 {
+            get {
+                return getPlayer(result.player1_id);
+            }
+        }
+        public Task<Participant> player2 {
+            get {
+                return getPlayer(result.player2_id);
+            }
+        }
+        public Task<Participant> winner {
+            get {
+                return getPlayer(result.winner_id);
+            }
+        }
+        public Task<Participant> loser {
+            get {
+                return getPlayer(result.loser_id);
+            }
+        }
         public MatchState state {
             get {
                 return matchState;
@@ -35,23 +56,41 @@ namespace ChallongeCSharpDriver.Main.Objects {
                 default:
                     throw new InvalidMatchState();
             }
+            updateMatchQuery = new UpdateMatchQuery(result.tournament_id, result.id);
         }
 
-        public async Task<Participant> getPlayer1() {
-            return await getPlayer(result.player1_id);
-        }
-
-        public async Task<Participant> getPlayer2() {
-            return await getPlayer(result.player2_id);
-        }
-
-        private async Task<Participant> getPlayer(Nullable<int> playerID){
+        private async Task<Participant> getPlayer(Nullable<int> playerID) {
             if (playerID.HasValue) {
                 ParticipantResult participantResult = await new ParticipantQuery(result.tournament_id, playerID.Value).call(caller);
                 return new ParticipantObject(participantResult);
             } else {
                 throw new ParticipantNotAssigned();
             }
+        }
+
+        public void player1Won() {
+            updateMatchQuery.winnerID = result.player1_id;
+        }
+
+        public void player2Won() {
+            updateMatchQuery.winnerID = result.player2_id;
+        }
+
+        public void tie() {
+            updateMatchQuery.isATie = true;
+        }
+
+        public void addScore(Score score) {
+            updateMatchQuery.scores.Add(score);
+        }
+
+        public async Task update() {
+            this.result = await updateMatchQuery.call(caller);
+        }
+
+        public async Task<ClosedMatch> close() {
+            await update();
+            return this;
         }
 
         public override string ToString() {
