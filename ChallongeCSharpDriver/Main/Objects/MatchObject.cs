@@ -56,7 +56,7 @@ namespace ChallongeCSharpDriver.Main.Objects {
                 default:
                     throw new InvalidMatchState();
             }
-            updateMatchQuery = new UpdateMatchQuery(result.tournament_id, result.id);
+            updateMatchQuery = new UpdateMatchQuery(result);
         }
 
         private async Task<Participant> getPlayer(Nullable<int> playerID) {
@@ -78,6 +78,10 @@ namespace ChallongeCSharpDriver.Main.Objects {
 
         public async Task<ClosedMatch> close() {
             await update();
+            return this;
+        }
+
+        public OpenMatch reopen() {
             return this;
         }
 

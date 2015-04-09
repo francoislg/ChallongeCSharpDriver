@@ -11,5 +11,6 @@ namespace ChallongeCSharpDriver.Main {
         Task<Participant> player2 { get; }
         Task<Participant> winner { get; }
         Task<Participant> loser { get; }
+        OpenMatch reopen();
     }
 }

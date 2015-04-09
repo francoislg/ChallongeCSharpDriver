@@ -8,11 +8,8 @@ namespace ChallongeCSharpDriver.Core.Queries {
     using ChallongeCSharpDriver.Core.Results;
 
     public class UpdateMatchQuery : ChallongeQuery<MatchResult> {
-        public int tournamentID { get; set; }
-        public int matchID { get; set; }
+        private MatchResult result;
         public List<Score> scores { get; set; }
-        public bool isATie { get; set; }
-        public Nullable<int> winnerID { get; set; }
         public Nullable<int> player1_votes { get; set; }
         public Nullable<int> player2_votes { get; set; }
 
@@ -20,9 +17,8 @@ namespace ChallongeCSharpDriver.Core.Queries {
             public MatchResult match { get; set; }
         }
 
-        public UpdateMatchQuery(int tournamentID, int matchID) {
-            this.tournamentID = tournamentID;
-            this.matchID = matchID;
+        public UpdateMatchQuery(MatchResult result) {
+            this.result = result;
             this.scores = new List<Score>();
         }
 
@@ -30,15 +26,24 @@ namespace ChallongeCSharpDriver.Core.Queries {
             QueryParameters parameters = new QueryParameters();
             if (scores.Count > 0) {
                 List<string> formattedScoreList = new List<string>();
+                int player1TotalScore = 0;
+                int player2TotalScore = 0;
                 foreach (Score score in scores) {
                     formattedScoreList.Add(scoreToString(score));
+                    if (score.player1 > score.player2) {
+                        player1TotalScore += 1;
+                    } else if (score.player2 > score.player1) {
+                        player2TotalScore += 1;
+                    }
                 }
                 parameters.Add("match[scores_csv]", String.Join(",", formattedScoreList));
-            }
-            if (isATie) {
-                parameters.Add("match[winner_id]", "tie");
-            } else if (winnerID.HasValue) {
-                parameters.Add("match[winner_id]", winnerID.Value.ToString());
+                if (player1TotalScore > player2TotalScore) {
+                    parameters.Add("match[winner_id]", result.player1_id.ToString());
+                } else if (player2TotalScore > player1TotalScore) {
+                    parameters.Add("match[winner_id]", result.player2_id.ToString());
+                } else {
+                    parameters.Add("match[winner_id]", "tie");
+                }
             }
             return parameters;
         }
@@ -48,7 +53,7 @@ namespace ChallongeCSharpDriver.Core.Queries {
         }
 
         private string getAPIPath() {
-            return "tournaments/" + tournamentID + "/matches/" + matchID;
+            return "tournaments/" + result.tournament_id + "/matches/" + result.id;
         }
 
         public async Task<MatchResult> call(ChallongeAPICaller caller) {

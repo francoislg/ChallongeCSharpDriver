@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace ChallongeCSharpDriverExample {
     using ChallongeCSharpDriver.Caller;
+    using ChallongeCSharpDriver;
     using ChallongeCSharpDriver.Main;
     using System.IO;
 
@@ -38,7 +39,10 @@ namespace ChallongeCSharpDriverExample {
             me.Hide();
             StartedTournament tournament = await tournaments.getTournament(1580436);
             OpenMatch nextMatch = await tournament.getNextMatch();
-            nextMatch.player1Won();
+            nextMatch.addScore(new Score(1, 2));
+            await nextMatch.update();
+            nextMatch.addScore(new Score(2, 1));
+            nextMatch.addScore(new Score(2, 1));
             await nextMatch.update();
             Console.WriteLine(nextMatch);
             me.Show();
