@@ -18,5 +18,9 @@ namespace ChallongeCSharpDriver.Main {
         public ParticipantObject(ParticipantResult result) {
             this.result = result;
         }
+
+        public override string ToString() {
+            return "Participant #" + result.id + ", " + name;
+        }
     }
 }

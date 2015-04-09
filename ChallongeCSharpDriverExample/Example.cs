@@ -39,7 +39,8 @@ namespace ChallongeCSharpDriverExample {
             List<TournamentObject> tournamentList = await tournaments.getTournaments();
             foreach (TournamentObject tournament in tournamentList) {
                 OpenMatch nextMatch = await tournament.getNextMatch();
-                Console.WriteLine(nextMatch);
+                Participant player1 = await nextMatch.getPlayer1();
+                Console.WriteLine(player1);
             }
             me.Show();
         }
