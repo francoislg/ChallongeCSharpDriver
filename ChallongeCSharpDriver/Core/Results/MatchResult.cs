@@ -7,6 +7,7 @@ namespace ChallongeCSharpDriver.Core.Results {
 
     public class MatchResult {
         public int id { get; set; }
+        public int tournament_id { get; set; }
         public string identifier { get; set; }
         public Nullable<int> player1_id { get; set; }
         public Nullable<int> player2_id { get; set; }
