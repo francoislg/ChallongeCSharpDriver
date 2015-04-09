@@ -38,7 +38,8 @@ namespace ChallongeCSharpDriverExample {
             me.Hide();
             List<TournamentObject> tournamentList = await tournaments.getTournaments();
             foreach (TournamentObject tournament in tournamentList) {
-                Console.WriteLine(tournament);
+                OpenMatch nextMatch = await tournament.getNextMatch();
+                Console.WriteLine(nextMatch);
             }
             me.Show();
         }
