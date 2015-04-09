@@ -9,9 +9,7 @@ namespace ChallongeCSharpDriver.Main {
         MatchState state { get; }
         Task<Participant> player1 { get; }
         Task<Participant> player2 { get; }
-        void player1Won();
-        void player2Won();
-        void tie();
+        void addScore(Score score);
         Task update();
         Task<ClosedMatch> close();
     }

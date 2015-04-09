@@ -68,18 +68,6 @@ namespace ChallongeCSharpDriver.Main.Objects {
             }
         }
 
-        public void player1Won() {
-            updateMatchQuery.winnerID = result.player1_id;
-        }
-
-        public void player2Won() {
-            updateMatchQuery.winnerID = result.player2_id;
-        }
-
-        public void tie() {
-            updateMatchQuery.isATie = true;
-        }
-
         public void addScore(Score score) {
             updateMatchQuery.scores.Add(score);
         }
