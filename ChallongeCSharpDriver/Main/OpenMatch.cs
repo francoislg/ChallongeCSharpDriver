@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace ChallongeCSharpDriver.Main {
     public interface OpenMatch {
         MatchState state { get; }
-        string getPlayer1Name();
-        string getPlayer2Name();
-        string ToString();
+        Task<Participant> getPlayer1();
+        Task<Participant> getPlayer2();
     }
 }
