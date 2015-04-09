@@ -30,7 +30,7 @@ namespace ChallongeCSharpDriver.Main.Objects {
         }
 
         public async Task<OpenMatch> getNextMatch() {
-            List<MatchResult> matches = await new TournamentMatchesQuery(result.id) { matchState = MatchState.Open }.call(caller);
+            List<MatchResult> matches = await new MatchesQuery(result.id) { matchState = MatchState.Open }.call(caller);
             if (matches.Count >= 0) {
                 return new MatchObject(matches[0], caller);
             } else {

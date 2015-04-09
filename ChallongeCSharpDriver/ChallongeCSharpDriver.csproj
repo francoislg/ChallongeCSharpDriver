@@ -45,8 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caller\ChallongeConfig.cs" />
+    <Compile Include="Core\QueryParameters.cs" />
+    <Compile Include="Score.cs" />
     <Compile Include="Core\Queries\TournamentQuery.cs" />
     <Compile Include="Core\Queries\ParticipantQuery.cs" />
+    <Compile Include="Core\Queries\UpdateMatchQuery.cs" />
     <Compile Include="Core\Results\ParticipantResult.cs" />
     <Compile Include="Core\ChallongeAPICaller.cs" />
     <Compile Include="Main\Exceptions\InvalidMatchState.cs" />
@@ -64,7 +67,7 @@
     <Compile Include="MatchState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Caller\ChallongeHttpClientAPICaller.cs" />
-    <Compile Include="Core\Queries\TournamentMatchesQuery.cs" />
+    <Compile Include="Core\Queries\MatchesQuery.cs" />
     <Compile Include="Core\Queries\TournamentsQuery.cs" />
     <Compile Include="Core\Results\TournamentResult.cs" />
     <Compile Include="Main\Objects\TournamentObject.cs" />

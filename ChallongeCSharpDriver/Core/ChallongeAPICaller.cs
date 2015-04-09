@@ -9,6 +9,7 @@ namespace ChallongeCSharpDriver.Core {
 
     public interface ChallongeAPICaller {
         Task<ReturnType> CallAPI<ReturnType>(string path);
-        Task<ReturnType> CallAPI<ReturnType>(string path, Dictionary<string, string> parameters);
+        Task<ReturnType> CallAPI<ReturnType>(string path, QueryParameters parameters);
+        Task<ReturnType> SendToAPI<ReturnType>(string path, QueryParameters parameters);
     }
 }

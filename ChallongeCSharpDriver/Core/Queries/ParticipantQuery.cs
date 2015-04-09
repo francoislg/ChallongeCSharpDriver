@@ -21,8 +21,8 @@ namespace ChallongeCSharpDriver.Core.Queries {
             public ParticipantResult participant { get; set; }
         }
 
-        private Dictionary<String, String> getParameters() {
-            return  new Dictionary<string, string>();
+        private QueryParameters getParameters() {
+            return new QueryParameters();
         }
 
         private string getAPIPath() {

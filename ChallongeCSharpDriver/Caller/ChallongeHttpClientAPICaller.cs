@@ -16,16 +16,16 @@ namespace ChallongeCSharpDriver.Caller {
         }
 
         public async Task<ReturnType> CallAPI<ReturnType>(string path) {
-            return await CallAPI<ReturnType>(path, new Dictionary<string, string>());
+            return await CallAPI<ReturnType>(path, new QueryParameters());
         }
 
-        public async Task<ReturnType> CallAPI<ReturnType>(string path, Dictionary<string, string> parameters) {
+        public async Task<ReturnType> CallAPI<ReturnType>(string path, QueryParameters parameters) {
             using (var client = new HttpClient()) {
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // HTTP GET
-                HttpResponseMessage response = await client.GetAsync(config.httpAddress + path + "." + config.getResponseType() + "?api_key=" + config.apiKey + dictionaryToString(parameters));
+                HttpResponseMessage response = await client.GetAsync(config.httpAddress + path + "." + config.getResponseType() + "?api_key=" + config.apiKey + parameters);
 
                 if (response.IsSuccessStatusCode) {
                     return await response.Content.ReadAsAsync<ReturnType>();
@@ -36,12 +36,24 @@ namespace ChallongeCSharpDriver.Caller {
             }
         }
 
-        private string dictionaryToString(Dictionary<string, string> dictionary) {
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach (KeyValuePair<string, string> entry in dictionary) {
-                stringBuilder.Append("&" + entry.Key + "=" + entry.Value);
+        public async Task<ReturnType> SendToAPI<ReturnType>(string path, QueryParameters parameters) {
+            using (var client = new HttpClient()) {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                parameters.Add("api_key", config.apiKey);
+                FormUrlEncodedContent urlContent = new FormUrlEncodedContent(parameters.parameters);
+
+                // HTTP GET
+                HttpResponseMessage response = await client.PostAsync(config.httpAddress + path + "." + config.getResponseType(), urlContent);
+
+                if (response.IsSuccessStatusCode) {
+                    return await response.Content.ReadAsAsync<ReturnType>();
+                } else {
+                    Console.WriteLine(response);
+                    throw new CouldNotReceiveResponse();
+                }
             }
-            return stringBuilder.ToString();
         }
     }
 }

@@ -12,15 +12,15 @@ namespace ChallongeCSharpDriver.Core.Queries {
 
     public class TournamentsQuery : ChallongeQuery<List<TournamentResult>> {
         public Nullable<TournamentType> type { get; set; }
-        
+
         private class TournamentsQueryResult {
             public TournamentResult tournament { get; set; }
         }
 
-        private Dictionary<String, String> getParameters() {
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+        private QueryParameters getParameters() {
+            QueryParameters parameters = new QueryParameters();
             if (type.HasValue) {
-                switch(type){
+                switch (type) {
                     case TournamentType.Single_Elimination:
                         parameters.Add("type", "single_elimination");
                         break;

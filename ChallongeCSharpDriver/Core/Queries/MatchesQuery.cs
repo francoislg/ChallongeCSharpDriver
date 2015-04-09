@@ -8,7 +8,7 @@ namespace ChallongeCSharpDriver.Core.Queries {
     using ChallongeCSharpDriver.Core.Results;
     using ChallongeCSharpDriver.Main;
 
-    public class TournamentMatchesQuery : ChallongeQuery<List<MatchResult>> {
+    public class MatchesQuery : ChallongeQuery<List<MatchResult>> {
         public int tournamentID { get; set; }
         public Nullable<MatchState> matchState { get; set; }
         public Nullable<int> participantID { get; set; }
@@ -17,12 +17,12 @@ namespace ChallongeCSharpDriver.Core.Queries {
             public MatchResult match { get; set; }
         }
 
-        public TournamentMatchesQuery(int tournamentID) {
+        public MatchesQuery(int tournamentID) {
             this.tournamentID = tournamentID;
         }
 
-        private Dictionary<String, String> getParameters() {
-            Dictionary<String, String> parameters = new Dictionary<string, string>();
+        private QueryParameters getParameters() {
+            QueryParameters parameters = new QueryParameters();
             switch (matchState) {
                 case MatchState.Open:
                     parameters.Add("state", "open");
@@ -43,12 +43,12 @@ namespace ChallongeCSharpDriver.Core.Queries {
             return parameters;
         }
 
-        private string getAPIPath(){
+        private string getAPIPath() {
             return "tournaments/" + tournamentID + "/matches";
         }
 
         public async Task<List<MatchResult>> call(ChallongeAPICaller caller) {
-            List <MatchesQueryResult> matchesQueryResult = await caller.CallAPI<List<MatchesQueryResult>>(getAPIPath(), getParameters());
+            List<MatchesQueryResult> matchesQueryResult = await caller.CallAPI<List<MatchesQueryResult>>(getAPIPath(), getParameters());
             List<MatchResult> matches = new List<MatchResult>();
             foreach (MatchesQueryResult queryResult in matchesQueryResult) {
                 matches.Add(queryResult.match);
