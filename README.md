@@ -51,9 +51,7 @@ Use the caller directly.
 
 For example,
 
-> HttpContent content = caller.CallAPI("tournaments/ID", parameters)
-
-> TournamentQueryResult tournamentQueryResult = await content.ReadAsAsync<TournamentQueryResult>();
+> TournamentQueryResult tournamentQueryResult = caller.CallAPI\<TournamentQueryResult\>("tournaments/ID", parameters)
 
 should get the information and fill TournamentQueryResult, which is a container that can fulfill the API response
 
