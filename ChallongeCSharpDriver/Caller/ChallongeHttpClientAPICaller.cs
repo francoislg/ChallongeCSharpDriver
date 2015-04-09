@@ -6,19 +6,20 @@ namespace ChallongeCSharpDriver.Caller {
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
+    using ChallongeCSharpDriver.Core;
 
-    public class ChallongeAPICaller {
+    public class ChallongeHttpClientAPICaller : ChallongeAPICaller {
         private ChallongeConfig config;
 
-        public ChallongeAPICaller(ChallongeConfig config) {
+        public ChallongeHttpClientAPICaller(ChallongeConfig config) {
             this.config = config;
         }
 
-        public async Task<HttpContent> CallAPI(string path) {
-            return await CallAPI(path, new Dictionary<string, string>());
+        public async Task<ReturnType> CallAPI<ReturnType>(string path) {
+            return await CallAPI<ReturnType>(path, new Dictionary<string, string>());
         }
 
-        public async Task<HttpContent> CallAPI(string path, Dictionary<string, string> parameters) {
+        public async Task<ReturnType> CallAPI<ReturnType>(string path, Dictionary<string, string> parameters) {
             using (var client = new HttpClient()) {
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -27,7 +28,7 @@ namespace ChallongeCSharpDriver.Caller {
                 HttpResponseMessage response = await client.GetAsync(config.httpAddress + path + "." + config.getResponseType() + "?api_key=" + config.apiKey + dictionaryToString(parameters));
 
                 if (response.IsSuccessStatusCode) {
-                    return response.Content;
+                    return await response.Content.ReadAsAsync<ReturnType>();
                 } else {
                     Console.WriteLine(response);
                     throw new CouldNotReceiveResponse();

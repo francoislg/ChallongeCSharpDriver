@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Main.Objects {
-    using ChallongeCSharpDriver.Caller;
+    using ChallongeCSharpDriver.Core;
     using ChallongeCSharpDriver.Core.Queries;
     using ChallongeCSharpDriver.Core.Results;
 

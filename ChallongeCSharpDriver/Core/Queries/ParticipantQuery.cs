@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Core.Queries {
-    using System.Net.Http;
     using ChallongeCSharpDriver.Core.Results;
     using ChallongeCSharpDriver.Caller;
 
@@ -31,8 +30,7 @@ namespace ChallongeCSharpDriver.Core.Queries {
         }
 
         public async Task<ParticipantResult> call(ChallongeAPICaller caller) {
-            HttpContent content = await caller.CallAPI(getAPIPath(), getParameters());
-            ParticipantQueryResult participantResult = await content.ReadAsAsync<ParticipantQueryResult>();
+            ParticipantQueryResult participantResult = await caller.CallAPI<ParticipantQueryResult>(getAPIPath(), getParameters());
             return participantResult.participant;
         }
     }

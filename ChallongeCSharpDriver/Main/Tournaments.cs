@@ -3,7 +3,7 @@ namespace ChallongeCSharpDriver.Main {
     using System;
     using System.Collections.Generic;
     using System.Text;
-    using ChallongeCSharpDriver.Caller;
+    using ChallongeCSharpDriver.Core;
     using ChallongeCSharpDriver.Core.Results;
     using ChallongeCSharpDriver.Core.Queries;
     using System.Threading.Tasks;

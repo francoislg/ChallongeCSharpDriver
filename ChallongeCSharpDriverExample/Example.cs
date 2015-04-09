@@ -14,7 +14,7 @@ namespace ChallongeCSharpDriverExample {
     using System.IO;
     
     public partial class Example : Form {
-        private ChallongeAPICaller caller;
+        private ChallongeHttpClientAPICaller caller;
         private Tournaments tournaments;
 
         public Example() {
@@ -22,7 +22,7 @@ namespace ChallongeCSharpDriverExample {
             string configPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/challongeCSharpDriver.config";
             var data = readIni(configPath);
             ChallongeConfig config = new ChallongeConfig(data["api_key"]);
-            caller = new ChallongeAPICaller(config);
+            caller = new ChallongeHttpClientAPICaller(config);
             tournaments = new Tournaments(caller);
         }
 

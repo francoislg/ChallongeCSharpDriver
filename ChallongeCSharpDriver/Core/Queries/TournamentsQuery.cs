@@ -43,8 +43,7 @@ namespace ChallongeCSharpDriver.Core.Queries {
         }
 
         public async Task<List<TournamentResult>> call(ChallongeAPICaller caller) {
-            HttpContent content = await caller.CallAPI(getAPIPath(), getParameters());
-            List<TournamentsQueryResult> tournamentsQueryResult = await content.ReadAsAsync<List<TournamentsQueryResult>>();
+            List<TournamentsQueryResult> tournamentsQueryResult = await caller.CallAPI<List<TournamentsQueryResult>>(getAPIPath(), getParameters());
             List<TournamentResult> tournaments = new List<TournamentResult>();
             foreach (TournamentsQueryResult queryResult in tournamentsQueryResult) {
                 tournaments.Add(queryResult.tournament);

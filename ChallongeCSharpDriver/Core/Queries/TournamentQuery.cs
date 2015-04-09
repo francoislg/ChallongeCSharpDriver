@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Core.Queries {
-    using System.Net.Http;
+    using ChallongeCSharpDriver.Core;
     using ChallongeCSharpDriver.Core.Results;
-    using ChallongeCSharpDriver.Caller;
 
     public class TournamentQuery : ChallongeQuery<TournamentResult> {
         public int tournamentID { get; set; }
@@ -29,8 +28,7 @@ namespace ChallongeCSharpDriver.Core.Queries {
         }
 
         public async Task<TournamentResult> call(ChallongeAPICaller caller) {
-            HttpContent content = await caller.CallAPI(getAPIPath(), getParameters());
-            TournamentQueryResult tournamentQueryResult = await content.ReadAsAsync<TournamentQueryResult>();
+            TournamentQueryResult tournamentQueryResult = await caller.CallAPI<TournamentQueryResult>(getAPIPath(), getParameters());
             return tournamentQueryResult.tournament;
         }
     }
