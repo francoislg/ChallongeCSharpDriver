@@ -12,17 +12,15 @@ namespace ChallongeCSharpDriver.Main.Objects {
     public class TournamentObject : StartedTournament {
         private ChallongeAPICaller caller;
         private TournamentResult result;
-        private List<MatchObject> matches;
-        public int remainingMatches { 
+        public Task<int> remainingUncompletedMatches {
             get {
-                return matches.Count;
+                return getNumberOfUncompletedMatches();
             }
         }
 
         public TournamentObject(TournamentResult result, ChallongeAPICaller caller) {
             this.result = result;
             this.caller = caller;
-            this.matches = new List<MatchObject>();
         }
 
         public override string ToString() {
@@ -36,6 +34,11 @@ namespace ChallongeCSharpDriver.Main.Objects {
             } else {
                 throw new NoNextMatchAvailable();
             }
+        }
+
+        private async Task<int> getNumberOfUncompletedMatches() {
+            List<MatchResult> matches = await new MatchesQuery(result.id).call(caller);
+            return matches.Select(match => match.state != "completed").Count();
         }
     }
 }
