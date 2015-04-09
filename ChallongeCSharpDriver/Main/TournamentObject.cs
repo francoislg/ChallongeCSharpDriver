@@ -9,7 +9,7 @@ namespace ChallongeCSharpDriver.Main {
     using ChallongeCSharpDriver.Core.Queries;
     using ChallongeCSharpDriver.Core.Results;
 
-    public class TournamentObject : Tournament {
+    public class TournamentObject : StartedTournament {
         private ChallongeAPICaller caller;
         private TournamentResult result;
         private List<MatchObject> matches;
@@ -32,7 +32,7 @@ namespace ChallongeCSharpDriver.Main {
         public async Task<OpenMatch> getNextMatch() {
             List<MatchResult> matches = await new TournamentMatchesQuery(result.id) { matchState = MatchState.Open }.call(caller);
             if (matches.Count >= 0) {
-                return new MatchObject(matches[0]);
+                return new MatchObject(matches[0], caller);
             } else {
                 throw new NoNextMatchAvailable();
             }

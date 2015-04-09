@@ -5,9 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Main {
+    using ChallongeCSharpDriver.Caller;
+    using ChallongeCSharpDriver.Core.Queries;
     using ChallongeCSharpDriver.Core.Results;
 
     public class MatchObject : OpenMatch {
+        private ChallongeAPICaller caller;
         private MatchResult result;
         private MatchState matchState; 
         public MatchState state {
@@ -16,8 +19,9 @@ namespace ChallongeCSharpDriver.Main {
             }
         }
 
-        public MatchObject(MatchResult result) {
+        public MatchObject(MatchResult result, ChallongeAPICaller caller) {
             this.result = result;
+            this.caller = caller;
             switch (result.state) {
                 case "open":
                     matchState = MatchState.Open;
@@ -33,12 +37,21 @@ namespace ChallongeCSharpDriver.Main {
             }
         }
 
-        public string getPlayer1Name() {
-            return result.player1_id.ToString();
+        public async Task<Participant> getPlayer1() {
+            return await getPlayer(result.player1_id);
         }
 
-        public string getPlayer2Name() {
-            return result.player2_id.ToString();
+        public async Task<Participant> getPlayer2() {
+            return await getPlayer(result.player2_id);
+        }
+
+        private async Task<Participant> getPlayer(Nullable<int> playerID){
+            if (playerID.HasValue) {
+                ParticipantResult participantResult = await new ParticipantQuery(result.tournament_id, playerID.Value).call(caller);
+                return new ParticipantObject(participantResult);
+            } else {
+                throw new ParticipantNotAssigned();
+            }
         }
 
         public override string ToString() {
