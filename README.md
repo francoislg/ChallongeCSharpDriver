@@ -51,7 +51,7 @@ Use the caller directly.
 
 For example,
 
-> TournamentQueryResult tournamentQueryResult = caller.CallAPI\<TournamentQueryResult\>("tournaments/ID", parameters)
+> TournamentQueryResult tournamentQueryResult = caller.GET\<TournamentQueryResult\>("tournaments/ID", parameters)
 
 should get the information and fill TournamentQueryResult, which is a container that can fulfill the API response
 
