@@ -21,8 +21,8 @@ namespace ChallongeCSharpDriver.Core.Queries {
             this.tournamentID = tournamentID;
         }
 
-        private QueryParameters getParameters() {
-            QueryParameters parameters = new QueryParameters();
+        private ChallongeQueryParameters getParameters() {
+            ChallongeQueryParameters parameters = new ChallongeQueryParameters();
             switch (matchState) {
                 case MatchState.Open:
                     parameters.Add("state", "open");

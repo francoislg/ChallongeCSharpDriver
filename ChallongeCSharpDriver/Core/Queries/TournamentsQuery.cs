@@ -17,8 +17,8 @@ namespace ChallongeCSharpDriver.Core.Queries {
             public TournamentResult tournament { get; set; }
         }
 
-        private QueryParameters getParameters() {
-            QueryParameters parameters = new QueryParameters();
+        private ChallongeQueryParameters getParameters() {
+            ChallongeQueryParameters parameters = new ChallongeQueryParameters();
             if (type.HasValue) {
                 switch (type) {
                     case TournamentType.Single_Elimination:

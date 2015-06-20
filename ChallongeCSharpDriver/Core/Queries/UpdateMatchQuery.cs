@@ -22,8 +22,8 @@ namespace ChallongeCSharpDriver.Core.Queries {
             this.scores = new List<Score>();
         }
 
-        private QueryParameters getParameters() {
-            QueryParameters parameters = new QueryParameters();
+        private ChallongeQueryParameters getParameters() {
+            ChallongeQueryParameters parameters = new ChallongeQueryParameters();
             if (scores.Count > 0) {
                 List<string> formattedScoreList = new List<string>();
                 int player1TotalScore = 0;

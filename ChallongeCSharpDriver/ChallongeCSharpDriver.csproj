@@ -33,6 +33,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LightweightHTTPAPICaller">
+      <HintPath>..\..\LightweightHTTPAPICaller\LightweightHTTPAPICaller\bin\Release\LightweightHTTPAPICaller.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -45,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caller\ChallongeConfig.cs" />
-    <Compile Include="Core\QueryParameters.cs" />
+    <Compile Include="Core\ChallongeQueryParameters.cs" />
     <Compile Include="Main\ClosedMatch.cs" />
     <Compile Include="Score.cs" />
     <Compile Include="Core\Queries\TournamentQuery.cs" />
@@ -58,7 +61,6 @@
     <Compile Include="Main\OpenMatch.cs" />
     <Compile Include="Main\Objects\MatchObject.cs" />
     <Compile Include="Core\Queries\ChallongeQuery.cs" />
-    <Compile Include="Caller\CouldNotReceiveResponse.cs" />
     <Compile Include="Core\Results\MatchResult.cs" />
     <Compile Include="Main\Participant.cs" />
     <Compile Include="Main\Exceptions\ParticipantNotAssigned.cs" />
@@ -67,7 +69,7 @@
     <Compile Include="Main\Tournaments.cs" />
     <Compile Include="MatchState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Caller\ChallongeHttpClientAPICaller.cs" />
+    <Compile Include="Caller\ChallongeHTTPClientAPICaller.cs" />
     <Compile Include="Core\Queries\MatchesQuery.cs" />
     <Compile Include="Core\Queries\TournamentsQuery.cs" />
     <Compile Include="Core\Results\TournamentResult.cs" />
