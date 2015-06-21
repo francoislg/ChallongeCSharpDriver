@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Main.Objects {
     using ChallongeCSharpDriver.Core;
+    using ChallongeCSharpDriver.Core.Objects;
     using ChallongeCSharpDriver.Core.Queries;
     using ChallongeCSharpDriver.Core.Results;
 
-    public class TournamentObject : StartedTournament {
+    public class TournamentObject : StartedTournament, PendingTournament {
         private ChallongeAPICaller caller;
         private TournamentResult result;
         public Task<int> remainingUncompletedMatches {
@@ -25,6 +26,15 @@ namespace ChallongeCSharpDriver.Main.Objects {
 
         public override string ToString() {
             return "Tournament #" + result.id + ", \"" + result.name + "\" at https://challonge.com/" + result.url + " (" + result.description + ")";
+        }
+
+        public async Task AddParticipant(String participant) {
+            await new AddParticipantQuery(result.id, new ParticipantEntry(participant)).call(caller);
+        }
+
+        public async Task<StartedTournament> StartTournament() {
+            await new StartTournamentQuery(result.id).call(caller);
+            return this;
         }
 
         public async Task<OpenMatch> getNextMatch() {
