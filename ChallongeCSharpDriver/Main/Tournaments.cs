@@ -17,7 +17,10 @@ namespace ChallongeCSharpDriver.Main {
         }
 
         public async Task<List<StartedTournament>> getStartedTournaments() {
-            List<TournamentResult> tournamentResultList = await new TournamentsQuery().call(caller);
+            List<TournamentResult> tournamentResultList = await new TournamentsQuery() {
+                state = TournamentState.InProgress
+            }
+            .call(caller);
             List<StartedTournament> tournamentList = new List<StartedTournament>();
             foreach (TournamentResult result in tournamentResultList) {
                 tournamentList.Add(new TournamentObject(result, caller));

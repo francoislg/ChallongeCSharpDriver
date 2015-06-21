@@ -12,6 +12,7 @@ namespace ChallongeCSharpDriver.Core.Queries {
 
     public class TournamentsQuery : ChallongeQuery<List<TournamentResult>> {
         public Nullable<TournamentType> type { get; set; }
+        public Nullable<TournamentState> state { get; set; }
 
         private class TournamentsQueryResult {
             public TournamentResult tournament { get; set; }
@@ -21,6 +22,9 @@ namespace ChallongeCSharpDriver.Core.Queries {
             ChallongeQueryParameters parameters = new ChallongeQueryParameters();
             if (type.HasValue) {
                 parameters.Add("type", TournamentTypeParser.ToIndexString(type.Value));
+            }
+            if (state.HasValue) {
+                parameters.Add("state", TournamentStateParser.ToString(state.Value));
             }
             return parameters;
         }

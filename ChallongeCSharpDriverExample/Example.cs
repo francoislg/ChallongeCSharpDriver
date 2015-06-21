@@ -39,10 +39,15 @@ namespace ChallongeCSharpDriverExample {
         private async void sendQueryButton_Click(object sender, EventArgs e) {
             Button me = (Button)sender;
             me.Hide();
+            List<StartedTournament> ts = await tournaments.getStartedTournaments();
+            ts.ForEach(t => Console.WriteLine(ts));
+            /*
+
+
             StartedTournament tournament = await tournaments.getTournament(1580436);
             Console.WriteLine(await tournament.remainingUncompletedMatches);
             OpenMatch nextMatch = await tournament.getNextMatch();
-            Console.WriteLine(nextMatch);
+            Console.WriteLine(nextMatch);*/
             me.Show();
         }
 
