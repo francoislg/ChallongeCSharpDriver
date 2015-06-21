@@ -11,11 +11,11 @@ namespace ChallongeCSharpDriverTest {
     using ChallongeCSharpDriver.Core.Results;
     [TestClass]
     public class TournamentQueryTest {
-        private static readonly int ANY_TOURNAMENT_ID = 5310951;
+       /* private static readonly int ANY_TOURNAMENT_ID = 5310951;
         private static readonly string BASICJSON = "{\"tournament\":{\"id\":1580436,\"name\":\"test\"}}";
 
         TournamentQuery tournamentQuery = new TournamentQuery(ANY_TOURNAMENT_ID);
-        /*Mock<ChallongeHTTPClientAPICaller> mockCaller = new Mock<ChallongeHTTPClientAPICaller>();
+        Mock<ChallongeHTTPClientAPICaller> mockCaller = new Mock<ChallongeHTTPClientAPICaller>();
 
         [TestMethod]
         public void CallShouldCallAPI() {

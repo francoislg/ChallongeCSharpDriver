@@ -20,8 +20,16 @@ namespace ChallongeCSharpDriver.Caller {
             return base.GET<ReturnType>(path, parameters);
         }
 
+        public Task<bool> PUT(string path, ChallongeQueryParameters parameters) {
+            return base.PUT(path, parameters);
+        }
+
         public Task<ReturnType> PUT<ReturnType>(string path, ChallongeQueryParameters parameters) {
             return base.PUT<ReturnType>(path, parameters);
+        }
+
+        public Task<bool> POST(string path, ChallongeQueryParameters parameters) {
+            return base.POST(path, parameters);
         }
 
         public Task<ReturnType> POST<ReturnType>(string path, ChallongeQueryParameters parameters) {

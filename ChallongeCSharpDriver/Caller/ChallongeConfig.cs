@@ -13,7 +13,7 @@ namespace ChallongeCSharpDriver.Caller {
 
             QueryParameters defaultParameters = new QueryParameters();
             defaultParameters.Add("api_key", apiKey);
-            this.config = new HTTPAPIConfig("https://api.challonge.com/v1/") { 
+            this.config = new HTTPAPIConfig("https://api.challonge.com/v1/") {
                 defaultParameters = defaultParameters, 
                 responseType = ResponseType.JSON 
             };

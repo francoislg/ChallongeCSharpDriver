@@ -49,7 +49,12 @@
   <ItemGroup>
     <Compile Include="Caller\ChallongeConfig.cs" />
     <Compile Include="Core\ChallongeQueryParameters.cs" />
+    <Compile Include="Core\Objects\ParticipantEntry.cs" />
+    <Compile Include="Core\Queries\AddParticipantQuery.cs" />
+    <Compile Include="Core\Queries\AddBulkParticipantQuery.cs" />
+    <Compile Include="Core\Queries\StartTournamentQuery.cs" />
     <Compile Include="Main\ClosedMatch.cs" />
+    <Compile Include="Main\PendingTournament.cs" />
     <Compile Include="Score.cs" />
     <Compile Include="Core\Queries\TournamentQuery.cs" />
     <Compile Include="Core\Queries\ParticipantQuery.cs" />

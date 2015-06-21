@@ -12,6 +12,8 @@ namespace ChallongeCSharpDriverExample {
     using ChallongeCSharpDriver.Caller;
     using ChallongeCSharpDriver;
     using ChallongeCSharpDriver.Main;
+    using ChallongeCSharpDriver.Core.Objects;
+    using ChallongeCSharpDriver.Core.Queries;
     using System.IO;
 
     public partial class Example : Form {
@@ -41,6 +43,16 @@ namespace ChallongeCSharpDriverExample {
             Console.WriteLine(await tournament.remainingUncompletedMatches);
             OpenMatch nextMatch = await tournament.getNextMatch();
             Console.WriteLine(nextMatch);
+            me.Show();
+        }
+
+        private async void button1_Click(object sender, EventArgs e) {
+            Button me = (Button)sender;
+            me.Hide();
+            PendingTournament tournament = await tournaments.getTournament(1742565);
+            await tournament.AddParticipant("CPU44");
+            StartedTournament started = await tournament.StartTournament();
+            Console.WriteLine(await started.remainingUncompletedMatches);
             me.Show();
         }
     }
