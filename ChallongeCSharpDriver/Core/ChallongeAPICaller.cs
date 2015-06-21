@@ -10,6 +10,7 @@ namespace ChallongeCSharpDriver.Core {
 
     public interface ChallongeAPICaller {
         Task<ReturnType> GET<ReturnType>(string path, ChallongeQueryParameters parameters);
+        Task<bool> DELETE(string path, ChallongeQueryParameters parameters);
         Task<bool> POST(string path, ChallongeQueryParameters parameters);
         Task<ReturnType> POST<ReturnType>(string path, ChallongeQueryParameters parameters);
         Task<bool> PUT(string path, ChallongeQueryParameters parameters);

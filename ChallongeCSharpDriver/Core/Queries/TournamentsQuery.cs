@@ -20,20 +20,7 @@ namespace ChallongeCSharpDriver.Core.Queries {
         private ChallongeQueryParameters getParameters() {
             ChallongeQueryParameters parameters = new ChallongeQueryParameters();
             if (type.HasValue) {
-                switch (type) {
-                    case TournamentType.Single_Elimination:
-                        parameters.Add("type", "single_elimination");
-                        break;
-                    case TournamentType.Double_Elimination:
-                        parameters.Add("type", "double_elimination");
-                        break;
-                    case TournamentType.Round_Robin:
-                        parameters.Add("type", "round_robin");
-                        break;
-                    case TournamentType.Swiss:
-                        parameters.Add("type", "swiss");
-                        break;
-                }
+                parameters.Add("type", TournamentTypeParser.ToIndexString(type.Value));
             }
             return parameters;
         }

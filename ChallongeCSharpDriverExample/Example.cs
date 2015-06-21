@@ -49,8 +49,10 @@ namespace ChallongeCSharpDriverExample {
         private async void button1_Click(object sender, EventArgs e) {
             Button me = (Button)sender;
             me.Hide();
-            PendingTournament tournament = await tournaments.getTournament(1742565);
+            TournamentCreator creator = new TournamentCreator(caller);
+            PendingTournament tournament = await creator.create("TestingCreator", TournamentType.Double_Elimination, "ssbmCPU_1");
             await tournament.AddParticipant("CPU44");
+            await tournament.AddParticipant("CPU22");
             StartedTournament started = await tournament.StartTournament();
             Console.WriteLine(await started.remainingUncompletedMatches);
             me.Show();

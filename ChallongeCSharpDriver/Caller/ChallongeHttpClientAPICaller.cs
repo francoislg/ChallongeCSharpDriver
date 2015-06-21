@@ -20,6 +20,10 @@ namespace ChallongeCSharpDriver.Caller {
             return base.GET<ReturnType>(path, parameters);
         }
 
+        public Task<bool> DELETE(string path, ChallongeQueryParameters parameters) {
+            return base.PUT(path, parameters);
+        }
+
         public Task<bool> PUT(string path, ChallongeQueryParameters parameters) {
             return base.PUT(path, parameters);
         }
