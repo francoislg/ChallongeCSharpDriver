@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Core.Queries {
+    using System.Collections.Generic;
     using ChallongeCSharpDriver.Core.Objects;
     using ChallongeCSharpDriver.Core.Results;
-    using ChallongeCSharpDriver.Caller;
 
     public class AddParticipantQuery : ChallongeQuery<ParticipantResult> {
         public int tournamentID { get; set; }
@@ -22,8 +18,8 @@ namespace ChallongeCSharpDriver.Core.Queries {
             public ParticipantResult participant { get; set; }
         }
 
-        private ChallongeQueryParameters getParameters() {
-            ChallongeQueryParameters parameters = new ChallongeQueryParameters();
+        private Dictionary<string, string> getParameters() {
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("participant[name]", entry.name);
             return parameters;
         }

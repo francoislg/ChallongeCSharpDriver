@@ -22,8 +22,8 @@ namespace ChallongeCSharpDriver.Core.Queries {
             public TournamentResult tournament { get; set; }
         }
 
-        private ChallongeQueryParameters getParameters() {
-            ChallongeQueryParameters parameters = new ChallongeQueryParameters();
+        private Dictionary<string, string> getParameters() {
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("tournament[name]", name);
             parameters.Add("tournament[tournament_type]", TournamentTypeParser.ToCreateString(type));
             parameters.Add("tournament[url]", url);

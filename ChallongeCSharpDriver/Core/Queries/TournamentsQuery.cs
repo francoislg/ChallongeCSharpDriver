@@ -18,8 +18,8 @@ namespace ChallongeCSharpDriver.Core.Queries {
             public TournamentResult tournament { get; set; }
         }
 
-        private ChallongeQueryParameters getParameters() {
-            ChallongeQueryParameters parameters = new ChallongeQueryParameters();
+        private Dictionary<string, string> getParameters() {
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             if (type.HasValue) {
                 parameters.Add("type", TournamentTypeParser.ToIndexString(type.Value));
             }

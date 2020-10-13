@@ -1,43 +1,45 @@
 ﻿
 namespace ChallongeCSharpDriver.Caller {
-    using LightweightHTTPAPICaller;
-    using System;
     using System.Collections.Generic;
-    using System.Text;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
     using System.Threading.Tasks;
+    using System.Net.Http;
+    using System.Text.Json;
     using ChallongeCSharpDriver.Core;
 
-    public class ChallongeHTTPClientAPICaller : HTTPAPICaller, ChallongeAPICaller {
+    public class ChallongeHTTPClientAPICaller : ChallongeAPICaller {
         private ChallongeConfig config;
 
-        public ChallongeHTTPClientAPICaller(ChallongeConfig config) : base(config.config) {
+        private readonly HttpClient client = new HttpClient();
+
+        public ChallongeHTTPClientAPICaller(ChallongeConfig config) {
             this.config = config;
         }
 
-        public Task<ReturnType> GET<ReturnType>(string path, ChallongeQueryParameters parameters) {
-            return base.GET<ReturnType>(path, parameters);
+        public async Task<ReturnType> GET<ReturnType>(string path, Dictionary<string, string> parameters) {
+            var stream = client.GetStreamAsync(this.config.url);
+            return await JsonSerializer.DeserializeAsync<ReturnType>(await stream);
         }
 
-        public Task<bool> DELETE(string path, ChallongeQueryParameters parameters) {
-            return base.PUT(path, parameters);
+        public Task<bool> DELETE(string path, Dictionary<string, string> parameters) {
+            return PUT(path, parameters);
         }
 
-        public Task<bool> PUT(string path, ChallongeQueryParameters parameters) {
-            return base.PUT(path, parameters);
+        public Task<bool> PUT(string path, Dictionary<string, string> parameters) {
+            return PUT(path, parameters);
         }
 
-        public Task<ReturnType> PUT<ReturnType>(string path, ChallongeQueryParameters parameters) {
-            return base.PUT<ReturnType>(path, parameters);
+        public Task<ReturnType> PUT<ReturnType>(string path, Dictionary<string, string> parameters) {
+            return PUT<ReturnType>(path, parameters);
         }
 
-        public Task<bool> POST(string path, ChallongeQueryParameters parameters) {
-            return base.POST(path, parameters);
+        public Task<bool> POST(string path, Dictionary<string, string> parameters) {
+            return POST(path, parameters);
         }
 
-        public Task<ReturnType> POST<ReturnType>(string path, ChallongeQueryParameters parameters) {
-            return base.POST<ReturnType>(path, parameters);
+        public Task<ReturnType> POST<ReturnType>(string path, Dictionary<string, string> parameters) {
+            return POST<ReturnType>(path, parameters);
         }
+
+        private
     }
 }

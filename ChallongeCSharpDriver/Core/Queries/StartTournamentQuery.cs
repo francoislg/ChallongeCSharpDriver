@@ -15,8 +15,8 @@ namespace ChallongeCSharpDriver.Core.Queries {
             this.tournamentID = tournamentID;
         }
 
-        private ChallongeQueryParameters getParameters() {
-            return new ChallongeQueryParameters();
+        private Dictionary<string, string> getParameters() {
+            return new Dictionary<string, string>();
         }
 
         private string getAPIPath() {

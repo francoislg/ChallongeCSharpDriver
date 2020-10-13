@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ChallongeCSharpDriver.Caller {
-    using LightweightHTTPAPICaller;
     public class ChallongeConfig {
-        public String apiKey { get; set; }
-        public HTTPAPIConfig config { get; private set; }
+        public String apiKey { get; private set; }
+        public Dictionary<string, string> defaultParameters { get; private set; }
+
+        public String url { get; private set; } = "https://api.challonge.com/v1/";
+
         public ChallongeConfig(String apiKey) {
             this.apiKey = apiKey;
-
-            QueryParameters defaultParameters = new QueryParameters();
+            
+            defaultParameters = new Dictionary<string, string>();
             defaultParameters.Add("api_key", apiKey);
-            this.config = new HTTPAPIConfig("https://api.challonge.com/v1/") {
-                defaultParameters = defaultParameters, 
-                responseType = ResponseType.JSON 
-            };
         }
     }
 }

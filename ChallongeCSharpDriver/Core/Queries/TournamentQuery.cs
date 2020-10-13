@@ -19,8 +19,8 @@ namespace ChallongeCSharpDriver.Core.Queries {
             public TournamentResult tournament { get; set; }
         }
 
-        private ChallongeQueryParameters getParameters() {
-            return new ChallongeQueryParameters();
+        private Dictionary<string, string> getParameters() {
+            return new Dictionary<string, string>();
         }
 
         private string getAPIPath() {

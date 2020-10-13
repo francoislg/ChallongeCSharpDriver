@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace ChallongeCSharpDriver.Core.Queries {
     using ChallongeCSharpDriver.Core;
-    using ChallongeCSharpDriver.Core.Results;
 
     public class DeleteTournamentQuery : ChallongeQuery<bool> {
         public int tournamentID { get; set; }
@@ -15,8 +14,8 @@ namespace ChallongeCSharpDriver.Core.Queries {
             this.tournamentID = tournamentID;
         }
 
-        private ChallongeQueryParameters getParameters() {
-            return new ChallongeQueryParameters();
+        private Dictionary<string, string> getParameters() {
+            return new Dictionary<string, string>();
         }
 
         private string getAPIPath() {
